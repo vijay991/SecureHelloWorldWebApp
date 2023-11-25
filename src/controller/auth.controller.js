@@ -6,6 +6,7 @@ const signUp = async (req, res, next) => {
     const rules = {
         name: 'required',
         email: 'required|email',
+        password: 'required|string|min:8|max:20',
         age: 'min:18'
     };
 

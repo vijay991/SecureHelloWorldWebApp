@@ -1,11 +1,10 @@
 const mongoose = require('mongoose')
-const validator = require('validator')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { ErrorHandler } = require('../middleware/error.middleware')
 
 
-
+//monogoDB schema
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -39,9 +38,11 @@ const userSchema = new mongoose.Schema({
     timestamps: true
 })
 
+//Generate jwt token for user
 userSchema.methods.generateAuthToken = async function () {
     const user = this
-    const token = jwt.sign({ _id: user.id.toString() }, 'thisistoken')
+    const expiresIn = process.env.JWT_EXPIRATION_IN_HOURS
+    const token = jwt.sign({ _id: user.id.toString() }, process.env.JWT_SECRET, { expiresIn })
     user.tokens = user.tokens.concat({ token })
     await user.save()
     return token
@@ -56,11 +57,15 @@ userSchema.methods.toJSON = function () {
 
 }
 
-//find user by credentails
+/**
+ * Find usrer by credentials
+ * @param {string} email - email of user
+ * @param {string} password - password of user
+ */
 userSchema.statics.findByCredentails = async (email, password) => {
     const user = await User.findOne({ email })
     if (!user) {
-        throw new ErrorHandler({ message: 'User does not exist', statusCode: 404 })
+        throw new ErrorHandler({ message: 'User does not exist', statusCode: 401 })
     }
     const isMatch = await bcrypt.compare(password, user.password)
     if (!isMatch) {

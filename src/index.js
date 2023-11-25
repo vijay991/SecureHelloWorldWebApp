@@ -1,7 +1,6 @@
-const express = require('express')
 require('dotenv').config()
-
 require('./db/mongoose')
+const express = require('express')
 const userRouter = require('./routes/user')
 const { errorMiddleware } = require('./middleware/error.middleware')
 

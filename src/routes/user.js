@@ -4,7 +4,7 @@ const { signUp, login, logout } = require('../controller/auth.controller')
 
 const router = new express.Router()
 
-router.post('/api/register', signUp)
+router.post('/api/signup', signUp)
 
 router.post('/api/user/login', login)
 
