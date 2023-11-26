@@ -11,6 +11,7 @@ const SignupPage = () => {
     const [error, setError] = useState(null)
     const navigate = useNavigate()
 
+    // Validates the signUp form
     const validateForm = () => {
         if (!formData.name || !formData.email || !formData.password) {
             setError('Please fill in all fields.');
@@ -35,14 +36,14 @@ const SignupPage = () => {
         return true;
     }
 
-    const handleSignup = async (e) => {
-        e.preventDefault()
+    // Handles the signUp process
+    const handleSignup = async (event) => {
+        event.preventDefault()
 
-        if (!validateForm()) {
-            return;
-        }
+        if (!validateForm()) return;
 
         try {
+            //call signup api
             await signUpApi(formData)
             navigate('/home')
 
@@ -54,28 +55,32 @@ const SignupPage = () => {
             });
             setError(null);
         } catch (error) {
-            setError(error.message || 'An error occurred during signup');
+            console.error('Signup failed!', error);
+            setError(error.message || 'signup failed. Please try again');
         }
     }
 
-    const handleNameChange = (e) => {
+    // Handles name input change
+    const handleNameChange = (event) => {
         setFormData({
             ...formData,
-            name: e.target.value,
+            name: event.target.value,
         });
     }
 
-    const handleEmailChange = (e) => {
+    // Handles email input change
+    const handleEmailChange = (event) => {
         setFormData({
             ...formData,
-            email: e.target.value,
+            email: event.target.value,
         });
     }
 
-    const handlePasswordChange = (e) => {
+    // Handles password input change
+    const handlePasswordChange = (event) => {
         setFormData({
             ...formData,
-            password: e.target.value,
+            password: event.target.value,
         });
     }
 

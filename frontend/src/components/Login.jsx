@@ -10,6 +10,7 @@ const LoginPage = () => {
     const [error, setError] = useState(null)
     const navigate = useNavigate()
 
+    // Validates the login form
     const validateForm = () => {
         if (!user.email || !user.password) {
             setError('Email and password are required');
@@ -34,39 +35,39 @@ const LoginPage = () => {
         return true;
     }
 
+    // Handles the login process
     const handleLogin = async (e) => {
         e.preventDefault();
 
-        if (!validateForm()) {
-            return;
-        }
+        if (!validateForm()) return;
 
         try {
-            await loginApi(user)
+            //call login api
+            await loginApi(user);
             navigate('/home');
 
             // Reset form and error on successful login
-            setUser({
-                email: '',
-                password: '',
-            });
+            setUser({ email: '', password: '' });
             setError(null);
         } catch (error) {
-            setError(error.message || "error occured while login");
+            console.error('Login failed:', error);
+            setError(error.message || 'Login failed. Please try again.');
         }
     }
 
-    const handleEmailChange = (e) => {
+    // Handles email input change
+    const handleEmailChange = (event) => {
         setUser({
             ...user,
-            email: e.target.value,
+            email: event.target.value,
         });
     }
 
-    const handlePasswordChange = (e) => {
+    // Handles password input change
+    const handlePasswordChange = (event) => {
         setUser({
             ...user,
-            password: e.target.value,
+            password: event.target.value,
         });
     }
 

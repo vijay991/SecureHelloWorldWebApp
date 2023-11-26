@@ -2,30 +2,24 @@ const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { ErrorHandler } = require('../middleware/error.middleware')
-
+const { JWT_SECRET, JWT_EXPIRATION_IN_HOURS } = process.env;
+const saltRounds = 10;
 
 //monogoDB schema
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
         trim: true,
-        required: true
     },
     email: {
         type: String,
         required: true,
-        unique: true,
         trim: true,
         lowercase: true,
-    },
-    age: {
-        type: Number,
-        default: 0,
     },
     password: {
         type: String,
         trim: true,
-        minLength: 7,
         required: true,
     },
     tokens: [{
@@ -41,20 +35,10 @@ const userSchema = new mongoose.Schema({
 //Generate jwt token for user
 userSchema.methods.generateAuthToken = async function () {
     const user = this
-    const expiresIn = process.env.JWT_EXPIRATION_IN_HOURS
-    const token = jwt.sign({ _id: user.id.toString() }, process.env.JWT_SECRET, { expiresIn })
+    const token = jwt.sign({ _id: user.id.toString() }, JWT_SECRET, { expiresIn: JWT_EXPIRATION_IN_HOURS })
     user.tokens = user.tokens.concat({ token })
     await user.save()
     return token
-}
-
-userSchema.methods.toJSON = function () {
-    const user = this
-    const userObj = user.toObject()
-    delete userObj.password
-    delete userObj.tokens
-    return userObj
-
 }
 
 /**
@@ -65,11 +49,11 @@ userSchema.methods.toJSON = function () {
 userSchema.statics.findByCredentails = async (email, password) => {
     const user = await User.findOne({ email })
     if (!user) {
-        throw new ErrorHandler({ message: 'User does not exist', statusCode: 401 })
+        throw new ErrorHandler({ message: 'User does not exist.', statusCode: 401 })
     }
-    const isMatch = await bcrypt.compare(password, user.password)
-    if (!isMatch) {
-        throw new ErrorHandler({ message: 'Incorrect password', statusCode: 401 })
+    const isPasswordMatch = await bcrypt.compare(password, user.password)
+    if (!isPasswordMatch) {
+        throw new ErrorHandler({ message: 'Incorrect password.', statusCode: 401 })
     }
     return user
 }
@@ -78,7 +62,8 @@ userSchema.statics.findByCredentails = async (email, password) => {
 userSchema.pre('save', async function (next) {
     const user = this
     if (user.isModified('password')) {
-        user.password = await bcrypt.hash(user.password, 8)
+        const salt = await bcrypt.genSalt(saltRounds);
+        user.password = await bcrypt.hash(user.password, salt)
     }
     next()
 })

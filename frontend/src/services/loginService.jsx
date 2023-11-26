@@ -1,8 +1,11 @@
-const loginUrl = 'http://localhost:9002/api/user/login'
-
+import { LOGIN_URL } from "../constant";
+/**
+ * Call login api
+ * @param {object} - object of login form data that
+ */
 async function loginApi({ email, password }) {
     try {
-        const response = await fetch(loginUrl, {
+        const response = await fetch(LOGIN_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -10,18 +13,19 @@ async function loginApi({ email, password }) {
             body: JSON.stringify({ email, password }),
         });
 
+        const data = await response.json();
+
+        //throw error message if login failed
         if (!response.ok) {
-            throw new Error('Invalid credentials');
+            throw new Error(data.message || 'Login failed. Please try again.');
         }
 
-        // Assuming your API returns a token upon successful login
-        const data = await response.json()
-        // Store the token in localStorage or a state management solution
+        //set token if login successful
         localStorage.setItem('token', data.token)
 
         return data;
     } catch (error) {
-        throw new Error('Error during login');
+        throw error
     }
 };
 

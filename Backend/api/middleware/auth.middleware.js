@@ -2,7 +2,14 @@ const jwt = require('jsonwebtoken')
 const User = require('../models/user')
 const { ErrorHandler } = require('./error.middleware')
 
-const auth = async (req, res, next) => {
+/**
+ * auth middleware to validate user session
+ * 
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @param {Function} next - Express next middleware function.
+ */
+const authMiddleware = async (req, _, next) => {
 
     try {
         const token = req.headers.authorization?.split(' ')[1]
@@ -23,4 +30,4 @@ const auth = async (req, res, next) => {
     }
 }
 
-module.exports = auth
+module.exports = authMiddleware

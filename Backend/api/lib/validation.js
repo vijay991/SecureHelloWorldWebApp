@@ -2,7 +2,7 @@ const Validator = require('validatorjs')
 const { ErrorHandler } = require('../middleware/error.middleware')
 
 /**
- * Gets item from database by id
+ * Validate request body based on rules
  * @param {object} body - request body object
  * @param {object} rules - validator rules object
  */

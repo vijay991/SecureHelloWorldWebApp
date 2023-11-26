@@ -1,26 +1,31 @@
-const signUpUrl = 'http://localhost:9002/api/signup'
-
+import { SIGNUP_URL } from "../constant";
+/**
+ * Call signUp api
+ * @param {object} - object of form data that
+ */
 async function signUpApi({ name, email, password }) {
     try {
-        const response = await fetch(signUpUrl, {
+        const response = await fetch(SIGNUP_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ name, email, age: 20, password }),
+            body: JSON.stringify({ name, email, password }),
         });
 
-        if (response.status !== 201) {
-            throw new Error('Invalide data')
+        const data = await response.json()
+
+        //throw error message if signup fail
+        if (!response.ok) {
+            throw new Error(data.message || 'SignUp failed. Please try again.')
         }
 
-        // Assuming your API returns a token upon successful signup
-        const data = await response.json()
+        //set token is signup successful
         localStorage.setItem('token', data.token)
 
         return data;
     } catch (error) {
-        throw new Error('Error during signUp');
+        throw error
     }
 };
 
