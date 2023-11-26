@@ -13,7 +13,7 @@ const signUp = async (req, res, next) => {
     const validationRules = {
         name: 'required',
         email: 'required|email',
-        password: 'required|string|min:8|max:20',
+        password: 'required|string|min:8',
     };
 
     try {

@@ -27,11 +27,6 @@ const LoginPage = () => {
             return false;
         }
 
-        if (!/^(?=.*[a-zA-Z])(?=.*\d).+$/.test(user.password)) {
-            setError('Password must contain at least one letter and one number');
-            return false;
-        }
-
         return true;
     }
 

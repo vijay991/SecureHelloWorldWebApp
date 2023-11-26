@@ -28,11 +28,6 @@ const SignupPage = () => {
             return false;
         }
 
-        if (!/^(?=.*[a-zA-Z])(?=.*\d).+$/.test(formData.password)) {
-            setError('Password must contain at least one letter and one number');
-            return false;
-        }
-
         return true;
     }
 
