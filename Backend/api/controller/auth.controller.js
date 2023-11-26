@@ -53,15 +53,4 @@ const login = async (req, res, next) => {
     }
 };
 
-//Handles user logout.
-const logout = async (req, res, next) => {
-    try {
-        req.user.tokens = req.user.tokens.filter((tokenObj) => tokenObj.token !== req.token);
-        await req.user.save();
-        res.send('User logged out successfully.');
-    } catch (error) {
-        next(new ErrorHandler(error));
-    }
-};
-
-module.exports = { signUp, login, logout };
+module.exports = { signUp, login };
