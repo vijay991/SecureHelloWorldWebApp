@@ -53,4 +53,18 @@ const login = async (req, res, next) => {
     }
 };
 
-module.exports = { signUp, login };
+const logout = async (req, res, next) => {
+    try {
+        req.user.tokens = req.user.tokens.filter((tokenObj) => tokenObj.token !== req.token);
+        await req.user.save();
+        res.send('User logged out successfully.');
+    } catch (error) {
+        next(new ErrorHandler(error));
+    }
+};
+
+const home = async (req, res, next) => {
+    res.send('Protected home page')
+}
+
+module.exports = { signUp, login, logout, home };
