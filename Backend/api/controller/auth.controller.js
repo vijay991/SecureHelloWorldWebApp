@@ -57,14 +57,14 @@ const logout = async (req, res, next) => {
     try {
         req.user.tokens = req.user.tokens.filter((tokenObj) => tokenObj.token !== req.token);
         await req.user.save();
-        res.send('User logged out successfully.');
+        res.send({ message: 'User logged out successfully.' });
     } catch (error) {
         next(new ErrorHandler(error));
     }
 };
 
-const home = async (req, res, next) => {
-    res.send('Protected home page')
+const verifyToken = async (req, res, next) => {
+    res.send({ message: 'Token is valid.' })
 }
 
-module.exports = { signUp, login, logout, home };
+module.exports = { signUp, login, logout, verifyToken };

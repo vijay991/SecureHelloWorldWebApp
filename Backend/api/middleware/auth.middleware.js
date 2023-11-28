@@ -10,7 +10,6 @@ const { ErrorHandler } = require('./error.middleware')
  * @param {Function} next - Express next middleware function.
  */
 const authMiddleware = async (req, _, next) => {
-
     try {
         const token = req.headers.authorization?.split(' ')[1]
         if (!token) {
@@ -26,7 +25,7 @@ const authMiddleware = async (req, _, next) => {
         req.user = user
         next()
     } catch (error) {
-        next(new ErrorHandler(error));
+        next(new ErrorHandler({ message: error.message, statusCode: 401 }));
     }
 }
 
