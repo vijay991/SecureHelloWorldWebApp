@@ -72,6 +72,8 @@ POST http://localhost:9002/api/signup
 }
 ```
 
+### Login
+**Endpoint:**
 POST http://localhost:9002/api/login
 
 **Request Body:**
