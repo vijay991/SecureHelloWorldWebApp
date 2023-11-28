@@ -1,8 +1,6 @@
 import { LOGOUT_URL } from "../constant";
-/**
- * Call logout api
- * @param {object} - object of logout form data
- */
+
+// Call logout api 
 async function logoutApi() {
     try {
         const token = localStorage.getItem('token');
