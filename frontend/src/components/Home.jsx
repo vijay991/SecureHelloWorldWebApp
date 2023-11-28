@@ -12,6 +12,7 @@ const HomePage = () => {
         try {
             await logoutApi()
             navigate("/login");
+            setError(null);
         } catch (error) {
             setError(error.message || 'Logout failed. Please try again.');
         }
