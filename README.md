@@ -9,7 +9,7 @@
 - [Usage](#usage)
   - [Running the API](#running-the-api)
   - [Running the Frontend](#running-the-frontend)
-- [Endpoint](#endpoint)
+- [Endpoint](#api-endpoint)
 
 ## Prerequisites
 
@@ -71,6 +71,7 @@ POST http://localhost:9002/api/signup
 ```
 
 POST http://localhost:9002/api/login
+
 **Request Body:**
 ```json
 {
