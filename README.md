@@ -9,8 +9,6 @@
 - [Usage](#usage)
   - [Running the API](#running-the-api)
   - [Running the Frontend](#running-the-frontend)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Prerequisites
 
