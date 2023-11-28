@@ -26,7 +26,7 @@ Make sure you have the following installed before proceeding:
 Navigate to the `Backend` folder and run the following command to install dependencies:
 
 ```bash
-cd backend
+cd Backend
 npm install
 ```
 
@@ -35,6 +35,22 @@ npm install
 Navigate to the `frontend` folder and run the following command to install dependencies:
 
 ```bash
-cd backend
+cd frontend
 npm install
 ```
+
+### Running the API
+Navigate to the `Backend` folder and run the following command to run api
+
+```bash
+cd Backend
+npm run start
+```
+
+### Running the Frontend
+Navigate to the `Frontend` folder and run the following command to run ui
+
+```bash
+cd Frontend
+npm run start
+
