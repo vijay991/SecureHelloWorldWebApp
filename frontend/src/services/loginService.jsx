@@ -1,7 +1,7 @@
 import { LOGIN_URL } from "../constant";
 /**
  * Call login api
- * @param {object} - object of login form data that
+ * @param {object} - object of login form data
  */
 async function loginApi({ email, password }) {
     try {

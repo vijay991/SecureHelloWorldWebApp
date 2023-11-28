@@ -13,17 +13,17 @@ const LoginPage = () => {
     // Validates the login form
     const validateForm = () => {
         if (!user.email || !user.password) {
-            setError('Email and password are required');
+            setError('Email and password are required.');
             return false;
         }
 
-        if (!/\S+@\S+\.\S+/.test(user.email)) {
-            setError('Invalid email address');
+        if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(user.email)) {
+            setError('Invalid email address.');
             return false;
         }
 
         if (user.password.length < 8) {
-            setError('Password must be at least 8 characters long');
+            setError('Password must be at least 8 characters long.');
             return false;
         }
 
@@ -31,8 +31,8 @@ const LoginPage = () => {
     }
 
     // Handles the login process
-    const handleLogin = async (e) => {
-        e.preventDefault();
+    const handleLogin = async (event) => {
+        event.preventDefault();
 
         if (!validateForm()) return;
 

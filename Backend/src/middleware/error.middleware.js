@@ -7,7 +7,7 @@ class ErrorHandler extends Error {
 }
 
 const errorMiddleware = (err, _, res, next) => {
-    err.message = err.message || 'Internal server Error'
+    err.message = err.message || 'Internal server Error.'
     err.statusCode = err.statusCode || 500
 
     if (process.env.NODE_ENV === 'development') {

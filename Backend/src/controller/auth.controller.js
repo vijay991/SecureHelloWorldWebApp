@@ -22,7 +22,7 @@ const signUp = async (req, res, next) => {
 
         const isEmailExist = await User.findOne({ email: req.body.email });
         if (isEmailExist) {
-            throw new ErrorHandler({ message: 'Email already registered', statusCode: 400 });
+            throw new ErrorHandler({ message: 'Email already registered.', statusCode: 400 });
         }
 
         const newUser = new User(req.body);

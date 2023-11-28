@@ -2,8 +2,7 @@ const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { ErrorHandler } = require('../middleware/error.middleware')
-const { JWT_SECRET, JWT_EXPIRATION_IN_HOURS } = process.env;
-const saltRounds = 10;
+const { JWT_SECRET, JWT_EXPIRATION_IN_HOURS, SALT_ROUND } = process.env;
 
 //monogoDB schema
 const userSchema = new mongoose.Schema({
@@ -62,8 +61,12 @@ userSchema.statics.findByCredentails = async (email, password) => {
 userSchema.pre('save', async function (next) {
     const user = this
     if (user.isModified('password')) {
-        const salt = await bcrypt.genSalt(saltRounds);
-        user.password = await bcrypt.hash(user.password, salt)
+        try {
+            const salt = await bcrypt.genSalt(parseInt(SALT_ROUND));
+            user.password = await bcrypt.hash(user.password, salt)
+        } catch (error) {
+            throw new ErrorHandler(error)
+        }
     }
     next()
 })

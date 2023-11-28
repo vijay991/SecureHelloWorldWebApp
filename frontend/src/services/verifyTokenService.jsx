@@ -1,12 +1,10 @@
 import { VERIFY_TOKEN_URL } from "../constant";
 
-//call api that verify jwt token
+//call api that verify jwt token is valid or not
 async function verifyTokenAPi() {
     try {
         const token = localStorage.getItem('token');
-        if (!token) {
-            throw new Error('Token not found.');
-        }
+        if (!token) throw new Error('Token not found.');
         const headers = {
             Authorization: `Bearer ${token}`,
         };
