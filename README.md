@@ -1,1 +1,1 @@
-# Auth app
+# SecureHelloWorldApp
