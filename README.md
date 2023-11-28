@@ -39,6 +39,7 @@ Navigate to the `frontend` folder and run the following command to install depen
 cd frontend
 npm install
 ```
+## Usage
 
 ### Running the API
 Navigate to the `Backend` folder and run the following command to run api
