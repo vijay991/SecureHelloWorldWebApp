@@ -12,6 +12,11 @@
 - [API Endpoints](#api-endpoints)
   - [Signup](#signup)
   - [Login](#login)
+- [UI Endpoints](#ui-endpoints)
+   - [Signup](#signup)
+   - [Login](#login)
+   - [Home](#home)
+
 
 ## Prerequisites
 
@@ -84,3 +89,13 @@ POST http://localhost:9002/api/login
     "password": ""
 }
 ```
+## UI Endpoints
+
+### Signup
+http://localhost:3000/signup
+
+### Login
+http://localhost:3000/login
+
+### Home
+http://localhost:3000/home
