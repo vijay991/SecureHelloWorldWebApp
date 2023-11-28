@@ -9,7 +9,9 @@
 - [Usage](#usage)
   - [Running the API](#running-the-api)
   - [Running the Frontend](#running-the-frontend)
-- [Endpoint](#api-endpoint)
+- [API Endpoints](#api-endpoints)
+  - [Signup](#signup)
+  - [Login](#login)
 
 ## Prerequisites
 
